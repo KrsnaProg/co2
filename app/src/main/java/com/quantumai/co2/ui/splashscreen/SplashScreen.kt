@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
@@ -18,6 +19,7 @@ import androidx.navigation.NavController
 import com.quantumai.co2.R
 import com.quantumai.co2.ui.LoginScreenRoute
 import com.quantumai.co2.ui.SplashScreenRoute
+import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.fonts.Inter
 import kotlinx.coroutines.delay
 
@@ -44,13 +46,13 @@ fun SplashScreen(
             modifier = Modifier
         )
         Text(
-            text = "Safe Home",
+            text = stringResource(R.string.app_logo_name),
             fontFamily = Inter,
             fontSize = 32.sp,
             lineHeight = 32.sp,
             fontWeight = FontWeight.W700,
             fontStyle = FontStyle.Italic,
-            color = Color(0xFF008080),
+            color = AppColors.primaryGreen,
         )
     }
 }

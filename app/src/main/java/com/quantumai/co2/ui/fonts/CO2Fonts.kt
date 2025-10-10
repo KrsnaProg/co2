@@ -11,4 +11,9 @@ val Inter = FontFamily(
     Font(R.font.inter_semibold_italic, FontWeight.SemiBold, FontStyle.Italic),
     Font(R.font.inter_extrabold_italic, FontWeight.ExtraBold, FontStyle.Italic),
     Font(R.font.inter_black_italic, FontWeight.Black, FontStyle.Italic),
+    Font(R.font.inter_bold, FontWeight.Bold, FontStyle.Normal),
+    Font(R.font.inter_semibold, FontWeight.Black, FontStyle.Normal),
+    Font(R.font.inter_extrabold, FontWeight.Black, FontStyle.Normal),
+    Font(R.font.inter_medium, FontWeight.Black, FontStyle.Normal),
+    Font(R.font.inter_regular, FontWeight.Black, FontStyle.Normal),
 )

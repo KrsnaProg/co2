@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">co2</string>
     <string name="base_url">http://185.229.111.28:8081/</string>
+    <string name="app_logo_name">Safe Home</string>
+    <string name="log_in_feature_title">Log in</string>
+    <string name="log_in_feature_entry_email">Email address</string>
+    <string name="log_in_feature_entry_password">Password</string>
+    <string name="log_in_feature_forget_password">Forgot Password?</string>
+    <string name="log_in_feature_log_in_button">Log In</string>
+    <string name="log_in_feature_dont_have_account">Don\'t have an account?</string>
+    <string name="log_in_feature_sign_up">Sign Up</string>
 </resources>
