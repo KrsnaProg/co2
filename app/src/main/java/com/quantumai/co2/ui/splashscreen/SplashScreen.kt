@@ -17,8 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.quantumai.co2.R
-import com.quantumai.co2.ui.LoginScreenRoute
-import com.quantumai.co2.ui.SplashScreenRoute
+import com.quantumai.co2.ui.CO2Routes
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.fonts.Inter
 import kotlinx.coroutines.delay
@@ -30,8 +29,8 @@ fun SplashScreen(
 
     LaunchedEffect(Unit) {
         delay(2000L)
-        navController.navigate(LoginScreenRoute) {
-            popUpTo(SplashScreenRoute) { inclusive = true }
+        navController.navigate(CO2Routes.LoginScreenRoute) {
+            popUpTo(CO2Routes.SplashScreenRoute) { inclusive = true }
         }
     }
 
