@@ -204,7 +204,9 @@ fun LoginScreen(
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold,
                         color = AppColors.primaryGreen,
-                        modifier = Modifier.clickable { /* TODO: Handle Sign Up */ }
+                        modifier = Modifier.clickable {
+                            navController.navigate(CO2Routes.RegisterScreenRoute)
+                        }
                     )
                 }
             }
