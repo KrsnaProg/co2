@@ -9,4 +9,16 @@
     <string name="log_in_feature_log_in_button">Log In</string>
     <string name="log_in_feature_dont_have_account">Don\'t have an account?</string>
     <string name="log_in_feature_sign_up">Sign Up</string>
+
+    <string name="register_feature_create_your_account">Create Your Account</string>
+    <string name="register_feature_name_and_surname">Name and Surname</string>
+    <string name="register_feature_phone_number">Phone Number</string>
+    <string name="register_feature_email">Email</string>
+    <string name="register_feature_password">Password</string>
+    <string name="register_feature_sign_up">Sign Up</string>
+    <string name="register_feature_name_and_surname_place_holder">John Doe</string>
+    <string name="register_feature_phone_number_place_holder">+1 234 567 8900</string>
+    <string name="register_feature_email_place_holder">example@email.com</string>
+    <string name="register_feature_password_place_holder">••••••••</string>
+
 </resources>

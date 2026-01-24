@@ -33,4 +33,11 @@ sealed class CO2Routes(
         showBottomBar = true
     )
 
+    @Serializable
+    object RegisterScreenRoute : CO2Routes(
+        title = "Register",
+        icon = null,
+        showTopBar = false,
+        showBottomBar = false
+    )
 }
