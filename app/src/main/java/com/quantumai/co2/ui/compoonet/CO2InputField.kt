@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quantumai.co2.ui.colors.AppColors
@@ -36,7 +37,7 @@ fun CO2InputField(
             text = label,
             fontFamily = Inter,
             fontSize = 16.sp,
-            fontWeight = FontWeight.W500,
+            fontWeight = FontWeight.W400,
             color = AppColors.secondaryText
         )
 
@@ -87,4 +88,16 @@ fun CO2InputField(
             )
         )
     }
+}
+
+@Preview
+@Composable
+fun CO2InputFieldP(){
+    CO2InputField(
+        label = "Name and Surname",
+        value = "Value",
+        onValueChange = {},
+        placeholder = "",
+        isPassword = true
+    )
 }
