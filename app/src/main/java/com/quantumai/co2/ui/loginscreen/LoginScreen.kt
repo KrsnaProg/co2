@@ -110,13 +110,11 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(24.dp))
 
                 var email by remember { mutableStateOf("") }
-                OutlinedTextField(
+                CO2InputField(
                     value = email,
                     onValueChange = { email = it },
-                    placeholder = { Text("Email address") },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp),
-                    singleLine = true
+                    placeholder = "Email address",
+                    isPassword = true,
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))

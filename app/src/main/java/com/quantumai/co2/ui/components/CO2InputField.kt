@@ -2,7 +2,7 @@ package com.quantumai.co2.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -80,7 +80,7 @@ fun CO2InputField(
                 else VisualTransformation.None,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(6.45f),
+                .heightIn(min = 53.dp),
             shape = RoundedCornerShape(10.dp),
             singleLine = true,
             colors = TextFieldDefaults.colors(
