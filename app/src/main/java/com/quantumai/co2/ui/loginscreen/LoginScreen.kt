@@ -46,6 +46,7 @@ import androidx.navigation.NavController
 import com.quantumai.co2.R
 import com.quantumai.co2.ui.CO2Routes
 import com.quantumai.co2.ui.colors.AppColors
+import com.quantumai.co2.ui.components.CO2InputField
 import com.quantumai.co2.ui.fonts.Inter
 
 @Composable
@@ -121,26 +122,11 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(20.dp))
 
                 var password by remember { mutableStateOf("") }
-                var passwordVisible by remember { mutableStateOf(false) }
-                OutlinedTextField(
+                CO2InputField(
                     value = password,
                     onValueChange = { password = it },
-                    placeholder = { Text("Password") },
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(12.dp),
-                    singleLine = true,
-                    visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
-                    trailingIcon = {
-                        val icon = if (passwordVisible)
-                            painterResource(id = R.drawable.ic_eye_outlined) // eye open
-                        else painterResource(id = R.drawable.ic_eye_closed) // eye closed
-                        IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                            Icon(
-                                painter = icon,
-                                contentDescription = "Toggle password visibility"
-                            )
-                        }
-                    }
+                    placeholder = "Password",
+                    isPassword = true,
                 )
 
                 Spacer(modifier = Modifier.height(32.dp))
@@ -148,7 +134,7 @@ fun LoginScreen(
                 Button(
                     onClick = {
 //                        viewModel.onLogin()
-                        navController.navigate(CO2Routes.DashboardScreenRoute){
+                        navController.navigate(CO2Routes.DashboardScreenRoute) {
                             popUpTo(CO2Routes.LoginScreenRoute) { inclusive = true }
                             launchSingleTop = true
                         }

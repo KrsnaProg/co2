@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.quantumai.co2.R
 import com.quantumai.co2.ui.colors.AppColors
-import com.quantumai.co2.ui.compoonet.CO2InputField
+import com.quantumai.co2.ui.components.CO2InputField
 import com.quantumai.co2.ui.fonts.Inter
 
 @Composable
@@ -122,7 +122,6 @@ fun RegisterScreen(viewModel: RegisterViewModel,navController: NavController) {
                 value = password,
                 onValueChange = { password = it },
                 placeholder = stringResource(R.string.register_feature_password_place_holder),
-                isPassword = true
             )
         }
 
