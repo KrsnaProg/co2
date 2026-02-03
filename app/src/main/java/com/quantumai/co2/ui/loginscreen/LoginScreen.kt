@@ -18,13 +18,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -38,14 +33,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.quantumai.co2.R
 import com.quantumai.co2.ui.CO2Routes
 import com.quantumai.co2.ui.colors.AppColors
+import com.quantumai.co2.ui.components.CO2Button
 import com.quantumai.co2.ui.components.CO2InputField
 import com.quantumai.co2.ui.fonts.Inter
 
@@ -129,7 +123,8 @@ fun LoginScreen(
 
                 Spacer(modifier = Modifier.height(32.dp))
 
-                Button(
+                CO2Button(
+                    text = stringResource(R.string.log_in_feature_log_in_button),
                     onClick = {
 //                        viewModel.onLogin()
                         navController.navigate(CO2Routes.DashboardScreenRoute) {
@@ -137,20 +132,7 @@ fun LoginScreen(
                             launchSingleTop = true
                         }
                     },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(50.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = AppColors.primaryButton)
-                ) {
-                    Text(
-                        text = stringResource(R.string.log_in_feature_log_in_button),
-                        fontSize = 18.sp,
-                        fontFamily = Inter,
-                        fontWeight = FontWeight.W600,
-                        color = Color.White
-                    )
-                }
+                )
 
                 Spacer(modifier = Modifier.height(16.dp))
 
