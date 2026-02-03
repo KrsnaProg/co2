@@ -34,11 +34,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.quantumai.co2.R
 import com.quantumai.co2.ui.colors.AppColors
-import com.quantumai.co2.ui.compoonet.CO2InputField
+import com.quantumai.co2.ui.components.CO2Button
+import com.quantumai.co2.ui.components.CO2InputField
 import com.quantumai.co2.ui.fonts.Inter
 
 @Composable
-fun RegisterScreen(viewModel: RegisterViewModel,navController: NavController) {
+fun RegisterScreen(viewModel: RegisterViewModel, navController: NavController) {
 
     val scrollState = rememberScrollState()
 
@@ -47,10 +48,12 @@ fun RegisterScreen(viewModel: RegisterViewModel,navController: NavController) {
             .fillMaxSize()
             .verticalScroll(scrollState)
             .padding(top = 133.dp, start = 24.dp, end = 24.dp, bottom = 120.dp),
-        verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
         Column(
             modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally) {
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
 
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
@@ -81,9 +84,10 @@ fun RegisterScreen(viewModel: RegisterViewModel,navController: NavController) {
 
         Spacer(modifier = Modifier.height(31.dp))
 
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(16.dp)) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
 
             // name surname
             var nameSurname by remember { mutableStateOf("") }
@@ -122,28 +126,15 @@ fun RegisterScreen(viewModel: RegisterViewModel,navController: NavController) {
                 value = password,
                 onValueChange = { password = it },
                 placeholder = stringResource(R.string.register_feature_password_place_holder),
-                isPassword = true
             )
         }
 
-        Button(
-            onClick = {
-               // sign up click in here
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            shape = RoundedCornerShape(10.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = AppColors.primaryButton)
-        ) {
-            Text(
-                text = stringResource(R.string.register_feature_sign_up),
-                fontFamily = Inter,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.W500,
-                color = Color.White
-            )
-        }
+        CO2Button(
+            stringResource(R.string.register_feature_sign_up),
+            {
+                // TODO
+            }
+        )
     }
 }
 
