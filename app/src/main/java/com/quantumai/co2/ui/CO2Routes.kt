@@ -40,4 +40,12 @@ sealed class CO2Routes(
         showTopBar = false,
         showBottomBar = false
     )
+
+    @Serializable
+    object ForgotPasswordScreenRoute : CO2Routes(
+        title = "Forgot Password",
+        icon = null,
+        showTopBar = false,
+        showBottomBar = false
+    )
 }

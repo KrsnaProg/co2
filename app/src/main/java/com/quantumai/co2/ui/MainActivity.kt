@@ -33,6 +33,7 @@ import androidx.navigation.compose.rememberNavController
 import com.quantumai.co2.R
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.dashboard.DashboardScreen
+import com.quantumai.co2.ui.forgotpasswordscreen.ForgotPasswordScreen
 import com.quantumai.co2.ui.loginscreen.LoginScreen
 import com.quantumai.co2.ui.registerscreen.RegisterScreen
 import com.quantumai.co2.ui.splashscreen.SplashScreen
@@ -143,6 +144,12 @@ class MainActivity : ComponentActivity() {
                         }
                         composable<CO2Routes.DashboardScreenRoute> {
                             DashboardScreen(
+                                navController = navController,
+                                viewModel = getViewModel()
+                            )
+                        }
+                        composable<CO2Routes.ForgotPasswordScreenRoute> {
+                            ForgotPasswordScreen(
                                 navController = navController,
                                 viewModel = getViewModel()
                             )

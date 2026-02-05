@@ -8,4 +8,5 @@ object AppColors {
     val primaryText = Color(0xFF171A1F)
     val secondaryText = Color(0XFF565D6D)
     val primaryButton = Color(0xFF008080)
+    val primaryGray = Color(0xFFDEE1E6)
 }
