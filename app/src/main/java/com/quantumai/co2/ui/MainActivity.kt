@@ -36,6 +36,7 @@ import com.quantumai.co2.ui.dashboard.DashboardScreen
 import com.quantumai.co2.ui.forgotpasswordscreen.ForgotPasswordScreen
 import com.quantumai.co2.ui.loginscreen.LoginScreen
 import com.quantumai.co2.ui.registerscreen.RegisterScreen
+import com.quantumai.co2.ui.resetpasswordscreen.ResetPasswordScreen
 import com.quantumai.co2.ui.splashscreen.SplashScreen
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -150,6 +151,13 @@ class MainActivity : ComponentActivity() {
                         }
                         composable<CO2Routes.ForgotPasswordScreenRoute> {
                             ForgotPasswordScreen(
+                                navController = navController,
+                                viewModel = getViewModel()
+                            )
+                        }
+
+                        composable<CO2Routes.ResetPasswordScreenRoute>{
+                            ResetPasswordScreen(
                                 navController = navController,
                                 viewModel = getViewModel()
                             )

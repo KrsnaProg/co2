@@ -89,7 +89,10 @@ private fun ForgotPasswordScreenContent(navController: NavController) {
             CO2Button(
                 text = stringResource(R.string.forgot_password_feature_send_code),
                 onClick = {
-                    // button click handle
+                    navController.navigate(CO2Routes.ResetPasswordScreenRoute){
+                        popUpTo(CO2Routes.ForgotPasswordScreenRoute) { inclusive = true }
+                        launchSingleTop = true
+                    }
                 }
             )
         }

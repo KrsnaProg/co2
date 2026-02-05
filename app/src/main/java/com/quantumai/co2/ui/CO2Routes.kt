@@ -48,4 +48,12 @@ sealed class CO2Routes(
         showTopBar = false,
         showBottomBar = false
     )
+
+    @Serializable
+    object ResetPasswordScreenRoute : CO2Routes(
+        title = "Reset Password",
+        icon = null,
+        showTopBar = false,
+        showBottomBar = false
+    )
 }
