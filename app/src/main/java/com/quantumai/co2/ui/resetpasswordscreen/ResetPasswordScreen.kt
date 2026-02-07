@@ -48,16 +48,6 @@ fun ResetPasswordScreenContent(navController: NavController){
             .verticalScroll(rememberScrollState())
             .padding(bottom = 100.dp)
     ) {
-        CO2TopNavigationBar(
-            title = stringResource(R.string.reset_password_feature_title),
-            onBackClick = {
-                navController.navigate(CO2Routes.ForgotPasswordScreenRoute) {
-                    popUpTo(CO2Routes.ResetPasswordScreenRoute) { inclusive = true }
-                    launchSingleTop = true
-                }
-            }
-        )
-
         Spacer(modifier = Modifier.height(32.dp))
 
         Column(

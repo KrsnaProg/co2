@@ -1,6 +1,7 @@
 package com.quantumai.co2.di
 
 import com.quantumai.co2.ui.MainViewModel
+import com.quantumai.co2.ui.devicesscreen.DevicesViewModel
 import com.quantumai.co2.ui.forgotpasswordscreen.ForgotPasswordViewModel
 import com.quantumai.co2.ui.loginscreen.LoginViewModel
 import com.quantumai.co2.ui.registerscreen.RegisterViewModel
@@ -27,5 +28,9 @@ val VIEW_MODELS_MODULE = module {
 
     viewModel {
         ResetPasswordViewModel()
+    }
+
+    viewModel {
+        DevicesViewModel()
     }
 }

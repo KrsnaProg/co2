@@ -7,32 +7,28 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.quantumai.co2.R
 import com.quantumai.co2.ui.colors.AppColors
-import com.quantumai.co2.ui.dashboard.DashboardScreen
+import com.quantumai.co2.ui.components.CO2TopNavigationBar
+import com.quantumai.co2.ui.devicesscreen.DevicesScreen
 import com.quantumai.co2.ui.forgotpasswordscreen.ForgotPasswordScreen
 import com.quantumai.co2.ui.loginscreen.LoginScreen
 import com.quantumai.co2.ui.registerscreen.RegisterScreen
@@ -53,71 +49,59 @@ class MainActivity : ComponentActivity() {
             val state by viewModel.viewState.collectAsState()
             val navController = rememberNavController()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
-            val screens = listOf(
-                CO2Routes.SplashScreenRoute,
-                CO2Routes.LoginScreenRoute,
-                CO2Routes.DashboardScreenRoute
-            )
+
+            val currentDestination = navBackStackEntry?.destination
+            val currentRoute = currentDestination?.route
+            val currentScreen = CO2Routes.all.firstOrNull { route ->
+                currentRoute?.endsWith(route.javaClass.simpleName) == true
+            } ?: CO2Routes.SplashScreenRoute
 
             Scaffold(
                 containerColor = Color.White,
                 topBar = {
-                    var currentScreenRoute: String? by remember {
-                        mutableStateOf(null)
-                    }
-                    LaunchedEffect(navBackStackEntry) {
-                        currentScreenRoute =
-                            navBackStackEntry?.destination?.route?.substringAfterLast('.')
-                    }
-                    val currentScreen =
-                        screens.find {
-                            it.javaClass.simpleName == currentScreenRoute
-                        } ?: CO2Routes.SplashScreenRoute
-                    if (currentScreen.showTopBar)
-                        TopAppBar(
-                            title = { Text("Simple Scaffold Screen") },
-                            navigationIcon = {
-                                IconButton(onClick = { /* "Open nav drawer" */ }) {
-                                    Icon(
-                                        Icons.Filled.Menu,
-                                        contentDescription = "Localized description"
-                                    )
-                                }
+                    if (currentScreen.showTopBar) {
+                        CO2TopNavigationBar(
+                            title = currentScreen.title,
+                            onBackClick = {
+                                navController.navigateUp()
                             }
                         )
+                    }
                 },
                 bottomBar = {
-                    var currentScreenRoute: String? by remember {
-                        mutableStateOf(null)
-                    }
-                    LaunchedEffect(navBackStackEntry) {
-                        currentScreenRoute =
-                            navBackStackEntry?.destination?.route?.substringAfterLast('.')
-                    }
-                    val currentScreen =
-                        screens.find {
-                            it.javaClass.simpleName == currentScreenRoute
-                        } ?: CO2Routes.SplashScreenRoute
-                    if (currentScreen.showBottomBar)
+                    if (currentScreen.showBottomBar) {
                         NavigationBar {
-                            val currentDestination =
-                                navController.currentBackStackEntryAsState().value?.destination
-                            screens.forEach { screen ->
+                            CO2Routes.bottomTabs.forEach { screen ->
+                                val selected = currentDestination
+                                    ?.hierarchy
+                                    ?.any { dest -> dest.route?.endsWith(screen.javaClass.simpleName) == true }
+                                    ?: false
+
                                 NavigationBarItem(
-                                    selected = currentDestination?.route == screen.javaClass.simpleName,
+                                    selected = selected,
                                     onClick = {
-                                        //Todo Handle navigation to different screens
+                                        navController.navigate(screen) {
+                                            launchSingleTop = true
+                                            restoreState = true
+                                            popUpTo(navController.graph.findStartDestination().id) {
+                                                saveState = true
+                                            }
+                                        }
                                     },
                                     icon = {
-                                        Icon(
-                                            painterResource(R.drawable.ic_eye_outlined),
-                                            contentDescription = "Hare"
-                                        )
+                                        screen.icon?.let {
+                                            Icon(
+                                                painterResource(it),
+                                                contentDescription = null,
+                                                modifier = Modifier.size(24.dp),
+                                            )
+                                        }
                                     },
-                                    label = { Text("Krishna") }
+                                    label = { Text(screen.title) },
                                 )
                             }
                         }
+                    }
                 },
             ) { paddingValues ->
                 Column(
@@ -143,8 +127,8 @@ class MainActivity : ComponentActivity() {
                                 viewModel = getViewModel()
                             )
                         }
-                        composable<CO2Routes.DashboardScreenRoute> {
-                            DashboardScreen(
+                        composable<CO2Routes.DevicesScreenRoute> {
+                            DevicesScreen(
                                 navController = navController,
                                 viewModel = getViewModel()
                             )
@@ -156,7 +140,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        composable<CO2Routes.ResetPasswordScreenRoute>{
+                        composable<CO2Routes.ResetPasswordScreenRoute> {
                             ResetPasswordScreen(
                                 navController = navController,
                                 viewModel = getViewModel()
