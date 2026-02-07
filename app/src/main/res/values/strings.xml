@@ -21,4 +21,19 @@
     <string name="register_feature_email_place_holder">example@email.com</string>
     <string name="register_feature_password_place_holder">••••••••</string>
 
+    <string name="forgot_password_feature_title">Forgot Password</string>
+    <string name="forgot_password_feature_email_address">Email address</string>
+    <string name="forgot_password_feature_your_email">your.email@example.com</string>
+    <string name="forgot_password_feature_send_code">Send Code</string>
+    <string name="forgot_password_feature_receive_code">Enter your email address to receive a verification code and reset your password.</string>
+
+    <string name="reset_password_feature_title">Reset Password</string>
+    <string name="reset_password_feature_verification_code">Verification Code</string>
+    <string name="reset_password_feature_digit_code">Enter the 6-digit code</string>
+    <string name="reset_password_feature_new_password">New Password</string>
+    <string name="reset_password_feature_enter_new_password">Enter your new password</string>
+    <string name="reset_password_feature_confirm_password">Confirm Password</string>
+    <string name="reset_password_feature_re_enter_password">Re-enter your new password</string>
+    <string name="reset_password_feature_sign_in">Sign In</string>
+
 </resources>

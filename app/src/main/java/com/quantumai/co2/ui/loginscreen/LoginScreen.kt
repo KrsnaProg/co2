@@ -141,7 +141,12 @@ fun LoginScreen(
                         .clickable(
                             interactionSource = null,
                             indication = null
-                        ) { /* TODO: Handle Forgot Password */ },
+                        ) {
+                            navController.navigate(CO2Routes.ForgotPasswordScreenRoute) {
+                                popUpTo(CO2Routes.LoginScreenRoute) { inclusive = true }
+                                launchSingleTop = true
+                            }
+                        },
                     text = stringResource(R.string.log_in_feature_forget_password),
                     fontFamily = Inter,
                     fontSize = 14.sp,
