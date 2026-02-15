@@ -35,6 +35,8 @@ import com.quantumai.co2.ui.fonts.Inter
 
 @Composable
 fun CO2InputField(
+    modifier: Modifier = Modifier,
+    textFieldModifier: Modifier = Modifier,
     label: String? = null,
     value: String,
     onValueChange: (String) -> Unit,
@@ -44,7 +46,7 @@ fun CO2InputField(
 ) {
     var passwordVisual by remember { mutableStateOf(true) }
 
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxWidth()) {
         label?.let {
             Text(
                 text = it,
@@ -78,7 +80,7 @@ fun CO2InputField(
             visualTransformation =
                 if (isPassword && passwordVisual) PasswordVisualTransformation()
                 else VisualTransformation.None,
-            modifier = Modifier
+            modifier = textFieldModifier
                 .fillMaxWidth()
                 .heightIn(min = 53.dp),
             shape = RoundedCornerShape(10.dp),
@@ -87,25 +89,21 @@ fun CO2InputField(
                 focusedContainerColor = Color.White,
                 unfocusedContainerColor = Color.White,
                 disabledContainerColor = Color.White,
-
                 focusedIndicatorColor = Color(0xFFDEE1E6),
                 unfocusedIndicatorColor = Color(0xFFDEE1E6),
                 disabledIndicatorColor = Color(0xFFDEE1E6),
-
                 cursorColor = AppColors.primaryText,
-
                 focusedTextColor = AppColors.primaryText,
                 unfocusedTextColor = AppColors.primaryText,
                 disabledTextColor = Color(0xFF565D6D),
-
                 focusedPlaceholderColor = AppColors.secondaryText,
                 unfocusedPlaceholderColor = AppColors.secondaryText
             ),
             trailingIcon = {
                 if (!isPassword) return@OutlinedTextField
                 val icon = if (passwordVisual)
-                    painterResource(id = R.drawable.ic_eye_outlined) // eye open
-                else painterResource(id = R.drawable.ic_eye_closed) // eye closed
+                    painterResource(id = R.drawable.ic_eye_outlined)
+                else painterResource(id = R.drawable.ic_eye_closed)
                 IconButton(onClick = { passwordVisual = !passwordVisual }) {
                     Icon(
                         painter = icon,

@@ -9,4 +9,7 @@ object AppColors {
     val secondaryText = Color(0XFF565D6D)
     val primaryButton = Color(0xFF008080)
     val primaryGray = Color(0xFFDEE1E6)
+    val primaryLightBlue = Color(0xFFE0FFFF)
+    val friendIconColor = Color(0xFF008080)
+    val removeIconColor = Color(0xFFDB143C)
 }
