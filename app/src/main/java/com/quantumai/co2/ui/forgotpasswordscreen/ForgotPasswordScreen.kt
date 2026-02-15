@@ -72,6 +72,7 @@ private fun ForgotPasswordScreenContent(navController: NavController) {
             Spacer(modifier = Modifier.height(23.dp))
 
             CO2InputField(
+                textFieldModifier = Modifier.height(53.dp),
                 label = stringResource(R.string.forgot_password_feature_email_address),
                 value = email,
                 onValueChange = { email = it },
