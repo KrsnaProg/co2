@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,7 +30,7 @@ fun CO2TopNavigationBar(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 60.dp)
+            .systemBarsPadding()
     ) {
 
         Box(
@@ -57,7 +58,7 @@ fun CO2TopNavigationBar(
             )
         }
 
-        Spacer(modifier = Modifier.height(40.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
         HorizontalDivider(
             modifier = Modifier.fillMaxWidth(),

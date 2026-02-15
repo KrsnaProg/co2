@@ -46,16 +46,6 @@ private fun ForgotPasswordScreenContent(navController: NavController) {
             .padding(bottom = 100.dp)
     ) {
 
-        CO2TopNavigationBar(
-            title = stringResource(R.string.forgot_password_feature_title),
-            onBackClick = {
-                navController.navigate(CO2Routes.LoginScreenRoute) {
-                    popUpTo(CO2Routes.LoginScreenRoute) { inclusive = true }
-                    launchSingleTop = true
-                }
-            }
-        )
-
         Column(
             modifier = Modifier.padding(start = 24.dp, end = 24.dp)
         ) {
@@ -93,10 +83,7 @@ private fun ForgotPasswordScreenContent(navController: NavController) {
             CO2Button(
                 text = stringResource(R.string.forgot_password_feature_send_code),
                 onClick = {
-                    navController.navigate(CO2Routes.ResetPasswordScreenRoute){
-                        popUpTo(CO2Routes.ForgotPasswordScreenRoute) { inclusive = true }
-                        launchSingleTop = true
-                    }
+                    navController.navigate(CO2Routes.ResetPasswordScreenRoute)
                 }
             )
         }

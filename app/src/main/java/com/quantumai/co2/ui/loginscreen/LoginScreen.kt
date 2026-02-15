@@ -108,7 +108,6 @@ fun LoginScreen(
                     value = email,
                     onValueChange = { email = it },
                     placeholder = "Email address",
-                    isPassword = true,
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -127,7 +126,7 @@ fun LoginScreen(
                     text = stringResource(R.string.log_in_feature_log_in_button),
                     onClick = {
 //                        viewModel.onLogin()
-                        navController.navigate(CO2Routes.DashboardScreenRoute) {
+                        navController.navigate(CO2Routes.DevicesScreenRoute) {
                             popUpTo(CO2Routes.LoginScreenRoute) { inclusive = true }
                             launchSingleTop = true
                         }
@@ -142,10 +141,7 @@ fun LoginScreen(
                             interactionSource = null,
                             indication = null
                         ) {
-                            navController.navigate(CO2Routes.ForgotPasswordScreenRoute) {
-                                popUpTo(CO2Routes.LoginScreenRoute) { inclusive = true }
-                                launchSingleTop = true
-                            }
+                            navController.navigate(CO2Routes.ForgotPasswordScreenRoute)
                         },
                     text = stringResource(R.string.log_in_feature_forget_password),
                     fontFamily = Inter,
