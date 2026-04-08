@@ -55,6 +55,7 @@ fun ResetPasswordScreenContent(navController: NavController){
         ) {
 
             CO2InputField(
+                textFieldModifier = Modifier.height(53.dp),
                 label = stringResource(R.string.reset_password_feature_verification_code),
                 value = codeDigits,
                 onValueChange = { codeDigits = it },

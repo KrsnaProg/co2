@@ -88,6 +88,7 @@ fun RegisterScreen(viewModel: RegisterViewModel, navController: NavController) {
             // name surname
             var nameSurname by remember { mutableStateOf("") }
             CO2InputField(
+                textFieldModifier = Modifier.height(53.dp),
                 label = stringResource(R.string.register_feature_name_and_surname),
                 value = nameSurname,
                 onValueChange = { nameSurname = it },
@@ -97,6 +98,7 @@ fun RegisterScreen(viewModel: RegisterViewModel, navController: NavController) {
             // Phone
             var phone by remember { mutableStateOf("") }
             CO2InputField(
+                textFieldModifier = Modifier.height(53.dp),
                 label = stringResource(R.string.register_feature_phone_number),
                 value = phone,
                 onValueChange = { input ->
@@ -109,6 +111,7 @@ fun RegisterScreen(viewModel: RegisterViewModel, navController: NavController) {
             // Email
             var email by remember { mutableStateOf("") }
             CO2InputField(
+                textFieldModifier = Modifier.height(53.dp),
                 label = stringResource(R.string.register_feature_email),
                 value = email,
                 onValueChange = { email = it },
@@ -118,6 +121,7 @@ fun RegisterScreen(viewModel: RegisterViewModel, navController: NavController) {
             // password
             var password by remember { mutableStateOf("") }
             CO2InputField(
+                textFieldModifier = Modifier.height(53.dp),
                 label = stringResource(R.string.register_feature_password),
                 value = password,
                 onValueChange = { password = it },

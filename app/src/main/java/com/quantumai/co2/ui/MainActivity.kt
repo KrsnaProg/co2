@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,6 +29,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.components.CO2TopNavigationBar
+import com.quantumai.co2.ui.contactsscreen.ContactsScreen
 import com.quantumai.co2.ui.devicesscreen.DevicesScreen
 import com.quantumai.co2.ui.forgotpasswordscreen.ForgotPasswordScreen
 import com.quantumai.co2.ui.loginscreen.LoginScreen
@@ -58,6 +60,7 @@ class MainActivity : ComponentActivity() {
 
             Scaffold(
                 containerColor = Color.White,
+                contentWindowInsets = WindowInsets(0),
                 topBar = {
                     if (currentScreen.showTopBar) {
                         CO2TopNavigationBar(
@@ -94,6 +97,7 @@ class MainActivity : ComponentActivity() {
                                                 painterResource(it),
                                                 contentDescription = null,
                                                 modifier = Modifier.size(24.dp),
+                                                tint = Color.Unspecified
                                             )
                                         }
                                     },
@@ -133,13 +137,18 @@ class MainActivity : ComponentActivity() {
                                 viewModel = getViewModel()
                             )
                         }
+                        composable<CO2Routes.ContactsScreenRoute> {
+                            ContactsScreen(
+                                navController = navController,
+                                viewModel = getViewModel()
+                            )
+                        }
                         composable<CO2Routes.ForgotPasswordScreenRoute> {
                             ForgotPasswordScreen(
                                 navController = navController,
                                 viewModel = getViewModel()
                             )
                         }
-
                         composable<CO2Routes.ResetPasswordScreenRoute> {
                             ResetPasswordScreen(
                                 navController = navController,

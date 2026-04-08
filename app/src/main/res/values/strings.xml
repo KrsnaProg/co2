@@ -36,4 +36,13 @@
     <string name="reset_password_feature_re_enter_password">Re-enter your new password</string>
     <string name="reset_password_feature_sign_in">Sign In</string>
 
+    <string name="contacts_feature_add_new_contact">Add New Contact</string>
+    <string name="contacts_feature_contact_name">Contact Name</string>
+    <string name="contacts_feature_contact_name_place_holder">e.g., Jane Doe</string>
+    <string name="contacts_feature_phone_number">Phone Number</string>
+    <string name="contacts_feature_phone_number_place_holder">e.g., +1 (555) 123-4567</string>
+    <string name="contacts_feature_add_friends">Add Friends</string>
+    <string name="contacts_feature_saved_friends">Saved Friends</string>
+
+
 </resources>
