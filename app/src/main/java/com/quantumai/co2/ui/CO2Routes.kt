@@ -16,6 +16,7 @@ sealed class CO2Routes(
             SplashScreenRoute,
             LoginScreenRoute,
             DevicesScreenRoute,
+            AlertsScreenRoute,
             AddNewDeviceScreenRoute,
             ContactsScreenRoute,
             RegisterScreenRoute,
@@ -25,6 +26,7 @@ sealed class CO2Routes(
 
         val bottomTabs: List<CO2Routes> = listOf(
             DevicesScreenRoute,
+            AlertsScreenRoute,
             ContactsScreenRoute,
             // Add more main tabs here later.
         )
@@ -48,6 +50,14 @@ sealed class CO2Routes(
     object DevicesScreenRoute : CO2Routes(
         title = "Devices",
         icon = R.drawable.nav_devices,
+        showTopBar = false,
+        showBottomBar = true,
+    )
+
+    @Serializable
+    object AlertsScreenRoute : CO2Routes(
+        title = "Alerts",
+        icon = R.drawable.nav_alerts,
         showTopBar = false,
         showBottomBar = true,
     )

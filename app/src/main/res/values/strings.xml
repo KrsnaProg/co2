@@ -53,4 +53,10 @@
     <string name="add_device_feature_scan_button">Scan</string>
     <string name="add_device_feature_save_button">Save</string>
 
+    <string name="alerts_feature_title">Alerts</string>
+    <string name="alerts_feature_main_sensor">Main Sensor 1</string>
+    <string name="alerts_feature_device_offline">Device Offline</string>
+    <string name="alerts_feature_security_camera">Security Camera</string>
+    <string name="alerts_feature_internet_disconnected">Internet Disconnected</string>
+
 </resources>

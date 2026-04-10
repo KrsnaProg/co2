@@ -28,6 +28,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.quantumai.co2.ui.addnewdevicescreen.AddNewDeviceScreen
+import com.quantumai.co2.ui.alertsscreen.AlertsScreen
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.components.CO2TopNavigationBar
 import com.quantumai.co2.ui.contactsscreen.ContactsScreen
@@ -137,6 +138,9 @@ class MainActivity : ComponentActivity() {
                                 navController = navController,
                                 viewModel = getViewModel()
                             )
+                        }
+                        composable<CO2Routes.AlertsScreenRoute> {
+                            AlertsScreen()
                         }
                         composable<CO2Routes.AddNewDeviceScreenRoute> {
                             AddNewDeviceScreen(navController = navController)
