@@ -1,0 +1,132 @@
+package com.quantumai.co2.ui.addnewdevicescreen
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.quantumai.co2.R
+import com.quantumai.co2.ui.colors.AppColors
+import com.quantumai.co2.ui.components.CO2Button
+import com.quantumai.co2.ui.components.CO2InputField
+
+@Composable
+fun AddNewDeviceScreen(navController: NavController) {
+    var location by remember { mutableStateOf("") }
+    var imei by remember { mutableStateOf("") }
+    var deviceName by remember { mutableStateOf("") }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 24.dp, vertical = 20.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(bottom = 130.dp)
+                .verticalScroll(rememberScrollState())
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .border(1.dp, AppColors.primaryGray, RoundedCornerShape(12.dp))
+                    .background(color = androidx.compose.ui.graphics.Color.White, shape = RoundedCornerShape(12.dp))
+                    .padding(20.dp)
+            ) {
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth(0.56f)
+                            .height(160.dp)
+                            .border(1.dp, AppColors.primaryGray, RoundedCornerShape(8.dp))
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Text(
+                        text = stringResource(R.string.add_device_feature_qr_hint),
+                        color = AppColors.secondaryText,
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                }
+            }
+
+            Spacer(modifier = Modifier.height(24.dp))
+
+            Text(
+                text = stringResource(R.string.add_device_feature_location_title),
+                color = AppColors.primaryText,
+                fontSize = 32.sp,
+                fontWeight = FontWeight.Bold
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            CO2InputField(
+                value = location,
+                onValueChange = { location = it },
+                placeholder = stringResource(R.string.add_device_feature_location_placeholder)
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            CO2InputField(
+                value = imei,
+                onValueChange = { imei = it },
+                placeholder = stringResource(R.string.add_device_feature_imei_placeholder)
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+
+            CO2InputField(
+                value = deviceName,
+                onValueChange = { deviceName = it },
+                placeholder = stringResource(R.string.add_device_feature_name_placeholder)
+            )
+        }
+
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth(),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
+        ) {
+            CO2Button(
+                text = stringResource(R.string.add_device_feature_scan_button),
+                onClick = { }
+            )
+            CO2Button(
+                text = stringResource(R.string.add_device_feature_save_button),
+                onClick = {
+                    navController.navigateUp()
+                }
+            )
+        }
+    }
+}

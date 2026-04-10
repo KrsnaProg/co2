@@ -16,6 +16,7 @@ sealed class CO2Routes(
             SplashScreenRoute,
             LoginScreenRoute,
             DevicesScreenRoute,
+            AddNewDeviceScreenRoute,
             ContactsScreenRoute,
             RegisterScreenRoute,
             ForgotPasswordScreenRoute,
@@ -49,6 +50,14 @@ sealed class CO2Routes(
         icon = R.drawable.nav_devices,
         showTopBar = false,
         showBottomBar = true,
+    )
+
+    @Serializable
+    object AddNewDeviceScreenRoute : CO2Routes(
+        title = "Add New Device",
+        icon = null,
+        showTopBar = true,
+        showBottomBar = false,
     )
 
     @Serializable

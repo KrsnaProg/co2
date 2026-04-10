@@ -44,5 +44,13 @@
     <string name="contacts_feature_add_friends">Add Friends</string>
     <string name="contacts_feature_saved_friends">Saved Friends</string>
 
+    <string name="devices_feature_add_new_device">+ Add New Device</string>
+    <string name="add_device_feature_qr_hint">Place the QR code in the frame to scan</string>
+    <string name="add_device_feature_location_title">Device Location</string>
+    <string name="add_device_feature_location_placeholder">Home Office</string>
+    <string name="add_device_feature_imei_placeholder">Enter the device imei</string>
+    <string name="add_device_feature_name_placeholder">Enter the device name</string>
+    <string name="add_device_feature_scan_button">Scan</string>
+    <string name="add_device_feature_save_button">Save</string>
 
 </resources>
