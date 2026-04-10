@@ -19,6 +19,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -28,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.quantumai.co2.R
+import com.quantumai.co2.ui.CO2Routes
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.components.CO2Button
 
@@ -40,22 +43,12 @@ private val mockReadings = listOf(
     ReadingUi("🔥", "Flame", "Not Detected", "Normal"),
 )
 
-private data class MockDevice(
-    val id: String,
-    val name: String,
-    val location: String,
-    val isOnline: Boolean,
-)
-
-private val mockDeviceMap = mapOf(
-    "1" to MockDevice("1", "Main Sensor Hub", "Home Office", true),
-    "2" to MockDevice("2", "Smart Sensor", "Living Room", false),
-)
-
 @Composable
-fun DeviceDetailScreen(navController: NavController, deviceId: String) {
-    val device = mockDeviceMap[deviceId]
-        ?: MockDevice(deviceId, "Unknown Device", "Unknown", false)
+fun DeviceDetailScreen(
+    navController: NavController,
+    viewModel: DeviceDetailViewModel,
+) {
+    val device by viewModel.state.collectAsState()
 
     Box(
         modifier = Modifier
@@ -84,7 +77,7 @@ fun DeviceDetailScreen(navController: NavController, deviceId: String) {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = device.name.first().toString(),
+                        text = device.name.firstOrNull()?.toString() ?: "?",
                         color = AppColors.primaryText,
                         fontWeight = FontWeight.Bold,
                         fontSize = 24.sp
@@ -100,11 +93,7 @@ fun DeviceDetailScreen(navController: NavController, deviceId: String) {
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )
-                    Text(
-                        text = device.location,
-                        color = AppColors.secondaryText,
-                        fontSize = 14.sp
-                    )
+                    Text(text = device.location, color = AppColors.secondaryText, fontSize = 14.sp)
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Box(
                             modifier = Modifier
@@ -128,9 +117,7 @@ fun DeviceDetailScreen(navController: NavController, deviceId: String) {
             }
 
             Spacer(modifier = Modifier.height(20.dp))
-
             HorizontalDivider(color = AppColors.primaryGray)
-
             Spacer(modifier = Modifier.height(20.dp))
 
             // Readings grid
@@ -150,7 +137,9 @@ fun DeviceDetailScreen(navController: NavController, deviceId: String) {
 
         CO2Button(
             text = stringResource(R.string.device_detail_feature_settings_button),
-            onClick = { },
+            onClick = {
+                navController.navigate(CO2Routes.DeviceSettingsScreenRoute(deviceId = device.id))
+            },
             modifier = Modifier.align(Alignment.BottomCenter)
         )
     }
@@ -167,25 +156,10 @@ private fun ReadingCard(reading: ReadingUi, modifier: Modifier = Modifier) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(text = reading.icon, fontSize = 16.sp)
             Spacer(modifier = Modifier.width(6.dp))
-            Text(
-                text = reading.label,
-                color = AppColors.secondaryText,
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium
-            )
+            Text(text = reading.label, color = AppColors.secondaryText, fontSize = 14.sp, fontWeight = FontWeight.Medium)
         }
         Spacer(modifier = Modifier.height(6.dp))
-        Text(
-            text = reading.value,
-            color = AppColors.primaryText,
-            fontWeight = FontWeight.Bold,
-            fontSize = 22.sp
-        )
-        Text(
-            text = reading.status,
-            color = AppColors.secondaryText,
-            fontSize = 13.sp
-        )
+        Text(text = reading.value, color = AppColors.primaryText, fontWeight = FontWeight.Bold, fontSize = 22.sp)
+        Text(text = reading.status, color = AppColors.secondaryText, fontSize = 13.sp)
     }
 }
-

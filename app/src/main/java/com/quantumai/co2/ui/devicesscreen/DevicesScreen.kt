@@ -20,6 +20,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,7 +35,6 @@ import com.quantumai.co2.R
 import com.quantumai.co2.ui.CO2Routes
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.components.CO2Button
-import com.quantumai.co2.ui.loginscreen.LoginViewModel
 
 data class DeviceItemUi(
     val id: String,
@@ -42,16 +43,13 @@ data class DeviceItemUi(
     val isOnline: Boolean,
 )
 
-private val mockDevices = listOf(
-    DeviceItemUi(id = "1", name = "Sentinel Hub", location = "Home Office", isOnline = true),
-    DeviceItemUi(id = "2", name = "Smart Sensor", location = "Living Room", isOnline = false),
-)
-
 @Composable
 fun DevicesScreen(
     navController: NavController,
-    viewModel: LoginViewModel
+    viewModel: DevicesViewModel,
 ) {
+    val devices by viewModel.devices.collectAsState()
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -72,7 +70,7 @@ fun DevicesScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             LazyColumn(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                items(mockDevices) { device ->
+                items(devices, key = { it.id }) { device ->
                     DeviceCard(
                         device = device,
                         onClick = {
@@ -85,9 +83,7 @@ fun DevicesScreen(
 
         CO2Button(
             text = stringResource(R.string.devices_feature_add_new_device),
-            onClick = {
-                navController.navigate(CO2Routes.AddNewDeviceScreenRoute)
-            },
+            onClick = { navController.navigate(CO2Routes.AddNewDeviceScreenRoute) },
             modifier = Modifier.align(Alignment.BottomCenter)
         )
     }
@@ -151,11 +147,7 @@ private fun DeviceCard(device: DeviceItemUi, onClick: () -> Unit) {
         Icon(
             painter = painterResource(R.drawable.arrow_left),
             contentDescription = null,
-            modifier = Modifier
-                .size(20.dp)
-                .then(
-                    Modifier.padding(end = 0.dp)
-                ),
+            modifier = Modifier.size(20.dp),
             tint = AppColors.secondaryText
         )
     }

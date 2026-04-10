@@ -49,6 +49,25 @@
     <string name="devices_feature_status_online">online</string>
     <string name="devices_feature_status_offline">offline</string>
     <string name="device_detail_feature_settings_button">Device Settings</string>
+
+    <string name="device_settings_device_name">Device Name</string>
+    <string name="device_settings_device_location">Device Location</string>
+    <string name="device_settings_edit_cd">Edit</string>
+    <string name="device_settings_alerts_section">Alerts</string>
+    <string name="device_settings_alert_gas_title">Gas Leak Alert</string>
+    <string name="device_settings_alert_gas_subtitle">Notify me of gas leaks.</string>
+    <string name="device_settings_alert_co_title">CO Level Alert</string>
+    <string name="device_settings_alert_co_subtitle">Notify me of high CO levels.</string>
+    <string name="device_settings_alert_smoke_title">Smoke Detection</string>
+    <string name="device_settings_alert_smoke_subtitle">Notify me of smoke.</string>
+    <string name="device_settings_alert_flame_title">Flame Detection</string>
+    <string name="device_settings_alert_flame_subtitle">Notify me of detected flames.</string>
+    <string name="device_settings_save_button">Save Changes</string>
+    <string name="device_settings_remove_button">Remove Device</string>
+    <string name="device_settings_dialog_edit_name_title">Edit Device Name</string>
+    <string name="device_settings_dialog_edit_location_title">Edit Device Location</string>
+    <string name="device_settings_dialog_save">Save</string>
+    <string name="device_settings_dialog_cancel">Cancel</string>
     <string name="add_device_feature_qr_hint">Place the QR code in the frame to scan</string>
     <string name="add_device_feature_location_title">Device Location</string>
     <string name="add_device_feature_location_placeholder">Home Office</string>

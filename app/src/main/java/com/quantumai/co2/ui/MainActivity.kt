@@ -31,6 +31,7 @@ import androidx.navigation.toRoute
 import com.quantumai.co2.ui.addnewdevicescreen.AddNewDeviceScreen
 import com.quantumai.co2.ui.alertsscreen.AlertsScreen
 import com.quantumai.co2.ui.devicedetailscreen.DeviceDetailScreen
+import com.quantumai.co2.ui.devicesettingsscreen.DeviceSettingsScreen
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.components.CO2TopNavigationBar
 import com.quantumai.co2.ui.contactsscreen.ContactsScreen
@@ -42,6 +43,7 @@ import com.quantumai.co2.ui.resetpasswordscreen.ResetPasswordScreen
 import com.quantumai.co2.ui.splashscreen.SplashScreen
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : ComponentActivity() {
 
@@ -151,7 +153,14 @@ class MainActivity : ComponentActivity() {
                             val route = backStackEntry.toRoute<CO2Routes.DeviceDetailScreenRoute>()
                             DeviceDetailScreen(
                                 navController = navController,
-                                deviceId = route.deviceId
+                                viewModel = getViewModel { parametersOf(route.deviceId) }
+                            )
+                        }
+                        composable<CO2Routes.DeviceSettingsScreenRoute> { backStackEntry ->
+                            val route = backStackEntry.toRoute<CO2Routes.DeviceSettingsScreenRoute>()
+                            DeviceSettingsScreen(
+                                navController = navController,
+                                viewModel = getViewModel { parametersOf(route.deviceId) }
                             )
                         }
                         composable<CO2Routes.ContactsScreenRoute> {
