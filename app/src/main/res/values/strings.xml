@@ -45,6 +45,10 @@
     <string name="contacts_feature_saved_friends">Saved Friends</string>
 
     <string name="devices_feature_add_new_device">+ Add New Device</string>
+    <string name="devices_feature_title">Devices</string>
+    <string name="devices_feature_status_online">online</string>
+    <string name="devices_feature_status_offline">offline</string>
+    <string name="device_detail_feature_settings_button">Device Settings</string>
     <string name="add_device_feature_qr_hint">Place the QR code in the frame to scan</string>
     <string name="add_device_feature_location_title">Device Location</string>
     <string name="add_device_feature_location_placeholder">Home Office</string>

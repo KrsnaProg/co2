@@ -18,6 +18,7 @@ sealed class CO2Routes(
             DevicesScreenRoute,
             AlertsScreenRoute,
             AddNewDeviceScreenRoute,
+            DeviceDetailScreenRoute(deviceId = ""),
             ContactsScreenRoute,
             RegisterScreenRoute,
             ForgotPasswordScreenRoute,
@@ -65,6 +66,14 @@ sealed class CO2Routes(
     @Serializable
     object AddNewDeviceScreenRoute : CO2Routes(
         title = "Add New Device",
+        icon = null,
+        showTopBar = true,
+        showBottomBar = false,
+    )
+
+    @Serializable
+    data class DeviceDetailScreenRoute(val deviceId: String) : CO2Routes(
+        title = "Device Details",
         icon = null,
         showTopBar = true,
         showBottomBar = false,
