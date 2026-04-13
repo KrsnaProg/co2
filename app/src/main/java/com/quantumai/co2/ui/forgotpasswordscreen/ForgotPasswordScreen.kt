@@ -4,16 +4,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,18 +30,20 @@ import com.quantumai.co2.ui.CO2Routes
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.components.CO2Button
 import com.quantumai.co2.ui.components.CO2InputField
-import com.quantumai.co2.ui.components.CO2TopNavigationBar
 
 @Composable
-fun ForgotPasswordScreen(viewModel: ForgotPasswordViewModel,navController: NavController) {
+fun ForgotPasswordScreen(viewModel: ForgotPasswordViewModel, navController: NavController) {
 
-    ForgotPasswordScreenContent(navController)
-}
-
-@Composable
-private fun ForgotPasswordScreenContent(navController: NavController) {
-
+    val state by viewModel.state.collectAsState()
     var email by remember { mutableStateOf("") }
+
+    // Navigate to Reset Password only after API confirms the email was sent
+    LaunchedEffect(state.isSuccess) {
+        if (state.isSuccess) {
+            viewModel.onNavigationConsumed()
+            navController.navigate(CO2Routes.ResetPasswordScreenRoute)
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -45,11 +52,9 @@ private fun ForgotPasswordScreenContent(navController: NavController) {
             .verticalScroll(rememberScrollState())
             .padding(bottom = 100.dp)
     ) {
-
         Column(
             modifier = Modifier.padding(start = 24.dp, end = 24.dp)
         ) {
-
             Spacer(modifier = Modifier.height(33.dp))
 
             Text(
@@ -79,14 +84,33 @@ private fun ForgotPasswordScreenContent(navController: NavController) {
                 placeholder = stringResource(R.string.forgot_password_feature_your_email)
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
-            CO2Button(
-                text = stringResource(R.string.forgot_password_feature_send_code),
-                onClick = {
-                    navController.navigate(CO2Routes.ResetPasswordScreenRoute)
-                }
-            )
+            // Error message
+            state.errorMessage?.let { error ->
+                Text(
+                    text = error,
+                    color = AppColors.errorText,
+                    fontSize = 13.sp,
+                    modifier = Modifier.fillMaxWidth()
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+            }
+
+            if (state.isLoading) {
+                CircularProgressIndicator(
+                    color = AppColors.primaryGreen,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            } else {
+                CO2Button(
+                    text = stringResource(R.string.forgot_password_feature_send_code),
+                    onClick = {
+                        viewModel.clearError()
+                        viewModel.sendCode(email)
+                    }
+                )
+            }
         }
     }
 }
