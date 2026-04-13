@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.gson)
     implementation(libs.converter.gson)
+    implementation(libs.converter.scalars)
     implementation(libs.call.adapter.rxjava2)
     implementation(libs.compose.navigation)
     implementation(libs.kotlin.serialization.json)

@@ -1,43 +1,28 @@
-package com.quantumai.co2.di
+package com.quantumai.co2.networking
 
 import com.google.gson.Gson
 import com.quantumai.co2.R
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
-import org.koin.dsl.bind
 import org.koin.dsl.module
-import retrofit2.CallAdapter
-import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
 val NETWORKING_MODULE = module {
 
-    single {
-        Gson()
-    }
+    single { Gson() }
 
-    single {
-        OkHttpClient
-            .Builder()
-            .build()
-    }
-
-    single {
-        RxJava2CallAdapterFactory.create()
-    } bind CallAdapter.Factory::class
-
-    single {
-        GsonConverterFactory.create(get())
-    } bind Converter.Factory::class
+    single { OkHttpClient.Builder().build() }
 
     single {
         Retrofit.Builder()
             .baseUrl(androidContext().resources.getString(R.string.base_url))
-            .addConverterFactory(get())
-            .addCallAdapterFactory(get())
+            .addConverterFactory(ScalarsConverterFactory.create())   // plain-text first
+            .addConverterFactory(GsonConverterFactory.create(get())) // JSON second
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(get())
             .build()
     }

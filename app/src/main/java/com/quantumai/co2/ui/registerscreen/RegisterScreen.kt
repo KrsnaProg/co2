@@ -12,8 +12,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.quantumai.co2.R
+import com.quantumai.co2.ui.CO2Routes
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.components.CO2Button
 import com.quantumai.co2.ui.components.CO2InputField
@@ -37,7 +41,23 @@ import com.quantumai.co2.ui.fonts.Inter
 @Composable
 fun RegisterScreen(viewModel: RegisterViewModel, navController: NavController) {
 
+    val state by viewModel.state.collectAsState()
     val scrollState = rememberScrollState()
+
+    var nameSurname by remember { mutableStateOf("") }
+    var phone by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
+    // Navigate to Login on success — reset state first so re-visiting register doesn't re-trigger
+    LaunchedEffect(state.isSuccess) {
+        if (state.isSuccess) {
+            viewModel.onNavigationConsumed()
+            navController.navigate(CO2Routes.LoginScreenRoute) {
+                popUpTo(CO2Routes.RegisterScreenRoute) { inclusive = true }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier
@@ -84,9 +104,6 @@ fun RegisterScreen(viewModel: RegisterViewModel, navController: NavController) {
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-
-            // name surname
-            var nameSurname by remember { mutableStateOf("") }
             CO2InputField(
                 textFieldModifier = Modifier.height(53.dp),
                 label = stringResource(R.string.register_feature_name_and_surname),
@@ -95,47 +112,66 @@ fun RegisterScreen(viewModel: RegisterViewModel, navController: NavController) {
                 placeholder = stringResource(R.string.register_feature_name_and_surname_place_holder)
             )
 
-            // Phone
-            var phone by remember { mutableStateOf("") }
             CO2InputField(
                 textFieldModifier = Modifier.height(53.dp),
                 label = stringResource(R.string.register_feature_phone_number),
                 value = phone,
                 onValueChange = { input ->
-                    phone = input.filter { it.isDigit() }
+                    // Allow leading + followed by digits
+                    phone = input.filter { it.isDigit() || it == '+' }
+                        .let { if (it.length > 1) it[0] + it.drop(1).filter { c -> c.isDigit() } else it }
                 },
                 placeholder = stringResource(R.string.register_feature_phone_number_place_holder),
-                keyboardType = KeyboardType.Number
+                keyboardType = KeyboardType.Phone
             )
 
-            // Email
-            var email by remember { mutableStateOf("") }
             CO2InputField(
                 textFieldModifier = Modifier.height(53.dp),
                 label = stringResource(R.string.register_feature_email),
                 value = email,
                 onValueChange = { email = it },
-                placeholder = stringResource(R.string.register_feature_email_place_holder)
+                placeholder = stringResource(R.string.register_feature_email_place_holder),
+                keyboardType = KeyboardType.Email
             )
 
-            // password
-            var password by remember { mutableStateOf("") }
             CO2InputField(
                 textFieldModifier = Modifier.height(53.dp),
                 label = stringResource(R.string.register_feature_password),
                 value = password,
                 onValueChange = { password = it },
                 placeholder = stringResource(R.string.register_feature_password_place_holder),
+                isPassword = true
             )
         }
 
-        CO2Button(
-            stringResource(R.string.register_feature_sign_up),
-            {
-                // TODO
-            }
-        )
+        // Error message
+        state.errorMessage?.let { error ->
+            Text(
+                text = error,
+                color = AppColors.removeIconColor,
+                fontSize = 14.sp,
+                modifier = Modifier.fillMaxWidth()
+            )
+        }
+
+        if (state.isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.CenterHorizontally),
+                color = AppColors.primaryGreen
+            )
+        } else {
+            CO2Button(
+                text = stringResource(R.string.register_feature_sign_up),
+                onClick = {
+                    viewModel.clearError()
+                    viewModel.register(
+                        fullName = nameSurname,
+                        phoneNumber = phone,
+                        email = email,
+                        password = password,
+                    )
+                }
+            )
+        }
     }
 }
-
-

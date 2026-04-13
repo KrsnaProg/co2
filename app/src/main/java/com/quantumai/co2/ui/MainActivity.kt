@@ -42,7 +42,6 @@ import com.quantumai.co2.ui.registerscreen.RegisterScreen
 import com.quantumai.co2.ui.resetpasswordscreen.ResetPasswordScreen
 import com.quantumai.co2.ui.splashscreen.SplashScreen
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class MainActivity : ComponentActivity() {
@@ -53,8 +52,6 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val viewModel = viewModel<MainViewModel>().value
-            val state by viewModel.viewState.collectAsState()
             val navController = rememberNavController()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
 
@@ -157,7 +154,8 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable<CO2Routes.DeviceSettingsScreenRoute> { backStackEntry ->
-                            val route = backStackEntry.toRoute<CO2Routes.DeviceSettingsScreenRoute>()
+                            val route =
+                                backStackEntry.toRoute<CO2Routes.DeviceSettingsScreenRoute>()
                             DeviceSettingsScreen(
                                 navController = navController,
                                 viewModel = getViewModel { parametersOf(route.deviceId) }

@@ -1,7 +1,6 @@
-package com.quantumai.co2.di
+package com.quantumai.co2.database
 
 import androidx.room.Room
-import com.quantumai.co2.database.CO2Database
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -12,7 +11,7 @@ val DATABASE_MODULE = module {
             CO2Database::class.java,
             "co2_database"
         )
-            .fallbackToDestructiveMigration()
+            .fallbackToDestructiveMigration(false)
             .build()
     }
 
