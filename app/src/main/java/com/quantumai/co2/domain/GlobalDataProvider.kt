@@ -4,6 +4,7 @@ import com.quantumai.co2.domain.model.ForgotPasswordRequestModel
 import com.quantumai.co2.domain.model.LoginRequestModel
 import com.quantumai.co2.domain.model.LoginResponseModel
 import com.quantumai.co2.domain.model.RegisterRequestModel
+import com.quantumai.co2.domain.model.ResetPasswordRequestModel
 import retrofit2.http.Body
 import retrofit2.http.POST
 
@@ -22,5 +23,10 @@ interface GlobalDataProvider {
     @POST("Customer/ForgotPassword")
     suspend fun forgotPassword(
         @Body body: ForgotPasswordRequestModel,
+    ): String
+
+    @POST("Customer/ResetPassword")
+    suspend fun resetPassword(
+        @Body body: ResetPasswordRequestModel,
     ): String
 }

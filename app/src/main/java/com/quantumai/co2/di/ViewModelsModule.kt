@@ -17,7 +17,7 @@ val VIEW_MODELS_MODULE = module {
     viewModel { LoginViewModel(get()) }
     viewModel { RegisterViewModel(get()) }
     viewModel { ForgotPasswordViewModel(get()) }
-    viewModel { ResetPasswordViewModel() }
+    viewModel { ResetPasswordViewModel(get()) }
     viewModel { DevicesViewModel(get()) }
     viewModel { ContactsViewModel() }
     viewModel { params -> DeviceDetailViewModel(params.get(), get()) }
