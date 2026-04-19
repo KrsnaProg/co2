@@ -1,12 +1,15 @@
 package com.quantumai.co2.domain
 
+import com.quantumai.co2.domain.model.DevicePreviewDto
 import com.quantumai.co2.domain.model.ForgotPasswordRequestModel
 import com.quantumai.co2.domain.model.LoginRequestModel
 import com.quantumai.co2.domain.model.LoginResponseModel
 import com.quantumai.co2.domain.model.RegisterRequestModel
 import com.quantumai.co2.domain.model.ResetPasswordRequestModel
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface GlobalDataProvider {
 
@@ -29,4 +32,9 @@ interface GlobalDataProvider {
     suspend fun resetPassword(
         @Body body: ResetPasswordRequestModel,
     ): String
+
+    @GET("Device/GetDevicePreviewDataByCustomerId")
+    suspend fun getDevicesByCustomerId(
+        @Query("customerId") customerId: String,
+    ): List<DevicePreviewDto>
 }

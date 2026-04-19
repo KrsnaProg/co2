@@ -15,7 +15,13 @@ val NETWORKING_MODULE = module {
 
     single { Gson() }
 
-    single { OkHttpClient.Builder().build() }
+    single { AuthInterceptor(get()) }
+
+    single {
+        OkHttpClient.Builder()
+            .addInterceptor(get<AuthInterceptor>())
+            .build()
+    }
 
     single {
         Retrofit.Builder()

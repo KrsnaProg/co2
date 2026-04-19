@@ -1,6 +1,7 @@
 package com.quantumai.co2.di
 
 import com.quantumai.co2.domain.usecases.ForgotPasswordUseCase
+import com.quantumai.co2.domain.usecases.GetDevicesUseCase
 import com.quantumai.co2.domain.usecases.LoginUseCase
 import com.quantumai.co2.domain.usecases.RegisterUseCase
 import com.quantumai.co2.domain.usecases.ResetPasswordUseCase
@@ -11,4 +12,5 @@ val USE_CASES_MODULE = module {
     factory { LoginUseCase(get(), get()) }
     factory { ForgotPasswordUseCase(get()) }
     factory { ResetPasswordUseCase(get()) }
+    factory { GetDevicesUseCase(get(), get()) }
 }
