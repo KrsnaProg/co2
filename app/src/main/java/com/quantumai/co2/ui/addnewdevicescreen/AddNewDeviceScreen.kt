@@ -15,12 +15,15 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -32,10 +35,22 @@ import com.quantumai.co2.ui.components.CO2Button
 import com.quantumai.co2.ui.components.CO2InputField
 
 @Composable
-fun AddNewDeviceScreen(navController: NavController) {
+fun AddNewDeviceScreen(
+    navController: NavController,
+    viewModel: AddNewDeviceViewModel,
+) {
     var location by remember { mutableStateOf("") }
     var imei by remember { mutableStateOf("") }
     var deviceName by remember { mutableStateOf("") }
+
+    val state by viewModel.state.collectAsState()
+
+    LaunchedEffect(state) {
+        if (state is AddDeviceState.Success) {
+            viewModel.resetState()
+            navController.navigateUp()
+        }
+    }
 
     Box(
         modifier = Modifier
@@ -52,7 +67,7 @@ fun AddNewDeviceScreen(navController: NavController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .border(1.dp, AppColors.primaryGray, RoundedCornerShape(12.dp))
-                    .background(color = androidx.compose.ui.graphics.Color.White, shape = RoundedCornerShape(12.dp))
+                    .background(color = Color.White, shape = RoundedCornerShape(12.dp))
                     .padding(20.dp)
             ) {
                 Column(
@@ -109,6 +124,15 @@ fun AddNewDeviceScreen(navController: NavController) {
                 onValueChange = { deviceName = it },
                 placeholder = stringResource(R.string.add_device_feature_name_placeholder)
             )
+
+            if (state is AddDeviceState.Error) {
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = (state as AddDeviceState.Error).message,
+                    color = Color.Red,
+                    fontSize = 14.sp
+                )
+            }
         }
 
         Column(
@@ -123,8 +147,15 @@ fun AddNewDeviceScreen(navController: NavController) {
             )
             CO2Button(
                 text = stringResource(R.string.add_device_feature_save_button),
+                isLoading = state is AddDeviceState.Loading,
                 onClick = {
-                    navController.navigateUp()
+                    viewModel.addDevice(
+                        imei = imei,
+                        deviceName = deviceName,
+                        deviceAddress = location,
+                        latitude = 0.0,
+                        longitude = 0.0,
+                    )
                 }
             )
         }

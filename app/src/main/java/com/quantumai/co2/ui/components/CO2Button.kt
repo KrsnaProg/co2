@@ -2,10 +2,12 @@ package com.quantumai.co2.ui.components
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -21,23 +23,32 @@ fun CO2Button(
     text: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    isLoading: Boolean = false,
     colors: ButtonColors = ButtonDefaults.buttonColors(containerColor = AppColors.primaryButton),
     textColor: Color = Color.White,
 ) {
     Button(
-        onClick = onClick,
+        onClick = { if (!isLoading) onClick() },
         modifier = modifier
             .fillMaxWidth()
             .heightIn(min = 48.dp),
         shape = RoundedCornerShape(12.dp),
         colors = colors
     ) {
-        Text(
-            text = text,
-            fontSize = 18.sp,
-            fontFamily = Inter,
-            fontWeight = FontWeight.W600,
-            color = textColor
-        )
+        if (isLoading) {
+            CircularProgressIndicator(
+                modifier = Modifier.size(22.dp),
+                color = textColor,
+                strokeWidth = 2.dp
+            )
+        } else {
+            Text(
+                text = text,
+                fontSize = 18.sp,
+                fontFamily = Inter,
+                fontWeight = FontWeight.W600,
+                color = textColor
+            )
+        }
     }
 }

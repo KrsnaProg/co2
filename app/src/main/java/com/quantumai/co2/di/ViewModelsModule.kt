@@ -1,6 +1,7 @@
 package com.quantumai.co2.di
 
 import com.quantumai.co2.ui.MainViewModel
+import com.quantumai.co2.ui.addnewdevicescreen.AddNewDeviceViewModel
 import com.quantumai.co2.ui.contactsscreen.ContactsViewModel
 import com.quantumai.co2.ui.devicedetailscreen.DeviceDetailViewModel
 import com.quantumai.co2.ui.devicesscreen.DevicesViewModel
@@ -14,6 +15,7 @@ import org.koin.dsl.module
 
 val VIEW_MODELS_MODULE = module {
     viewModel { MainViewModel() }
+    viewModel { AddNewDeviceViewModel(get()) }
     viewModel { LoginViewModel(get()) }
     viewModel { RegisterViewModel(get()) }
     viewModel { ForgotPasswordViewModel(get()) }

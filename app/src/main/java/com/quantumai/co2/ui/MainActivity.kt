@@ -144,7 +144,10 @@ class MainActivity : ComponentActivity() {
                             AlertsScreen()
                         }
                         composable<CO2Routes.AddNewDeviceScreenRoute> {
-                            AddNewDeviceScreen(navController = navController)
+                            AddNewDeviceScreen(
+                                navController = navController,
+                                viewModel = getViewModel()
+                            )
                         }
                         composable<CO2Routes.DeviceDetailScreenRoute> { backStackEntry ->
                             val route = backStackEntry.toRoute<CO2Routes.DeviceDetailScreenRoute>()

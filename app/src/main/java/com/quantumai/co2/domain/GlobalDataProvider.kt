@@ -1,5 +1,6 @@
 package com.quantumai.co2.domain
 
+import com.quantumai.co2.domain.model.AddDeviceRequest
 import com.quantumai.co2.domain.model.DevicePreviewDto
 import com.quantumai.co2.domain.model.ForgotPasswordRequestModel
 import com.quantumai.co2.domain.model.LoginRequestModel
@@ -37,4 +38,10 @@ interface GlobalDataProvider {
     suspend fun getDevicesByCustomerId(
         @Query("customerId") customerId: String,
     ): List<DevicePreviewDto>
+
+    @POST("Device/AddDeviceByImei")
+    suspend fun addDeviceByImei(
+        @Query("Imei") imei: String,
+        @Body body: AddDeviceRequest,
+    ): String
 }
