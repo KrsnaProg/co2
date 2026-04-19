@@ -74,6 +74,7 @@
     <string name="add_device_feature_imei_placeholder">Enter the device imei</string>
     <string name="add_device_feature_name_placeholder">Enter the device name</string>
     <string name="add_device_feature_scan_button">Scan</string>
+    <string name="add_device_feature_stop_scan_button">Stop Scan</string>
     <string name="add_device_feature_save_button">Save</string>
 
     <string name="alerts_feature_title">Alerts</string>
