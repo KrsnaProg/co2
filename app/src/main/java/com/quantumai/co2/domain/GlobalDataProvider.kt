@@ -1,6 +1,7 @@
 package com.quantumai.co2.domain
 
 import com.quantumai.co2.domain.model.AddDeviceRequest
+import com.quantumai.co2.domain.model.DeviceData
 import com.quantumai.co2.domain.model.DevicePreviewDto
 import com.quantumai.co2.domain.model.ForgotPasswordRequestModel
 import com.quantumai.co2.domain.model.LoginRequestModel
@@ -10,6 +11,7 @@ import com.quantumai.co2.domain.model.ResetPasswordRequestModel
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface GlobalDataProvider {
@@ -43,5 +45,16 @@ interface GlobalDataProvider {
     suspend fun addDeviceByImei(
         @Query("Imei") imei: String,
         @Body body: AddDeviceRequest,
+    ): String
+
+    @GET("IoT/GetMyDeviceData/{imei}")
+    suspend fun getMyDeviceInfo(
+        @Path("imei") imei: String
+    ): DeviceData
+
+    @POST("Customer/CreateCustomerFriend")
+    suspend fun createCustomerFriend(
+        @Query("nickName") nickName: String,
+        @Query("phoneNumber") phoneNumber: String,
     ): String
 }

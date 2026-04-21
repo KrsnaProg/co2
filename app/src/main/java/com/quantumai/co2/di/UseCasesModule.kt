@@ -1,6 +1,7 @@
 package com.quantumai.co2.di
 
 import com.quantumai.co2.domain.usecases.AddDeviceUseCase
+import com.quantumai.co2.domain.usecases.AddFriendUseCase
 import com.quantumai.co2.domain.usecases.ForgotPasswordUseCase
 import com.quantumai.co2.domain.usecases.GetDevicesUseCase
 import com.quantumai.co2.domain.usecases.LoginUseCase
@@ -10,6 +11,7 @@ import org.koin.dsl.module
 
 val USE_CASES_MODULE = module {
     factory { AddDeviceUseCase(get()) }
+    factory { AddFriendUseCase(get()) }
     factory { RegisterUseCase(get()) }
     factory { LoginUseCase(get(), get()) }
     factory { ForgotPasswordUseCase(get()) }

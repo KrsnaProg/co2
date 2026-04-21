@@ -42,6 +42,7 @@
     <string name="contacts_feature_phone_number">Phone Number</string>
     <string name="contacts_feature_phone_number_place_holder">e.g., +1 (555) 123-4567</string>
     <string name="contacts_feature_add_friends">Add Friends</string>
+    <string name="plemcontacts_feature_adding">Adding...</string>
     <string name="contacts_feature_saved_friends">Saved Friends</string>
 
     <string name="devices_feature_add_new_device">+ Add New Device</string>
