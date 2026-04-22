@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">co2</string>
-    <string name="base_url">http://185.229.111.28:8081/</string>
+    <string name="base_url">http://185.229.111.28:8082/SafeHome/</string>
     <string name="app_logo_name">Safe Home</string>
     <string name="log_in_feature_title">Log in</string>
     <string name="log_in_feature_entry_email">Email address</string>
@@ -42,7 +42,46 @@
     <string name="contacts_feature_phone_number">Phone Number</string>
     <string name="contacts_feature_phone_number_place_holder">e.g., +1 (555) 123-4567</string>
     <string name="contacts_feature_add_friends">Add Friends</string>
+    <string name="plemcontacts_feature_adding">Adding...</string>
     <string name="contacts_feature_saved_friends">Saved Friends</string>
 
+    <string name="devices_feature_add_new_device">+ Add New Device</string>
+    <string name="devices_feature_title">Devices</string>
+    <string name="devices_feature_status_online">online</string>
+    <string name="devices_feature_status_offline">offline</string>
+    <string name="device_detail_feature_settings_button">Device Settings</string>
+
+    <string name="device_settings_device_name">Device Name</string>
+    <string name="device_settings_device_location">Device Location</string>
+    <string name="device_settings_edit_cd">Edit</string>
+    <string name="device_settings_alerts_section">Alerts</string>
+    <string name="device_settings_alert_gas_title">Gas Leak Alert</string>
+    <string name="device_settings_alert_gas_subtitle">Notify me of gas leaks.</string>
+    <string name="device_settings_alert_co_title">CO Level Alert</string>
+    <string name="device_settings_alert_co_subtitle">Notify me of high CO levels.</string>
+    <string name="device_settings_alert_smoke_title">Smoke Detection</string>
+    <string name="device_settings_alert_smoke_subtitle">Notify me of smoke.</string>
+    <string name="device_settings_alert_flame_title">Flame Detection</string>
+    <string name="device_settings_alert_flame_subtitle">Notify me of detected flames.</string>
+    <string name="device_settings_save_button">Save Changes</string>
+    <string name="device_settings_remove_button">Remove Device</string>
+    <string name="device_settings_dialog_edit_name_title">Edit Device Name</string>
+    <string name="device_settings_dialog_edit_location_title">Edit Device Location</string>
+    <string name="device_settings_dialog_save">Save</string>
+    <string name="device_settings_dialog_cancel">Cancel</string>
+    <string name="add_device_feature_qr_hint">Place the QR code in the frame to scan</string>
+    <string name="add_device_feature_location_title">Device Location</string>
+    <string name="add_device_feature_location_placeholder">Home Office</string>
+    <string name="add_device_feature_imei_placeholder">Enter the device imei</string>
+    <string name="add_device_feature_name_placeholder">Enter the device name</string>
+    <string name="add_device_feature_scan_button">Scan</string>
+    <string name="add_device_feature_stop_scan_button">Stop Scan</string>
+    <string name="add_device_feature_save_button">Save</string>
+
+    <string name="alerts_feature_title">Alerts</string>
+    <string name="alerts_feature_main_sensor">Main Sensor 1</string>
+    <string name="alerts_feature_device_offline">Device Offline</string>
+    <string name="alerts_feature_security_camera">Security Camera</string>
+    <string name="alerts_feature_internet_disconnected">Internet Disconnected</string>
 
 </resources>

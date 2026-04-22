@@ -2,7 +2,8 @@ package com.quantumai.co2.app
 
 import android.app.Application
 import com.quantumai.co2.di.APPLICATION_MODULE
-import com.quantumai.co2.di.NETWORKING_MODULE
+import com.quantumai.co2.database.DATABASE_MODULE
+import com.quantumai.co2.networking.NETWORKING_MODULE
 import com.quantumai.co2.di.SHARED_MODULE
 import com.quantumai.co2.di.USE_CASES_MODULE
 import com.quantumai.co2.di.VIEW_MODELS_MODULE
@@ -18,6 +19,7 @@ class CO2App : Application() {
             modules(
                 NETWORKING_MODULE,
                 APPLICATION_MODULE,
+                DATABASE_MODULE,
                 USE_CASES_MODULE,
                 VIEW_MODELS_MODULE,
                 SHARED_MODULE,

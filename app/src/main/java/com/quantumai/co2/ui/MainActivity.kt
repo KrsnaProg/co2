@@ -27,6 +27,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.quantumai.co2.ui.addnewdevicescreen.AddNewDeviceScreen
+import com.quantumai.co2.ui.alertsscreen.AlertsScreen
+import com.quantumai.co2.ui.devicedetailscreen.DeviceDetailScreen
+import com.quantumai.co2.ui.devicesettingsscreen.DeviceSettingsScreen
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.components.CO2TopNavigationBar
 import com.quantumai.co2.ui.contactsscreen.ContactsScreen
@@ -37,7 +42,7 @@ import com.quantumai.co2.ui.registerscreen.RegisterScreen
 import com.quantumai.co2.ui.resetpasswordscreen.ResetPasswordScreen
 import com.quantumai.co2.ui.splashscreen.SplashScreen
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : ComponentActivity() {
 
@@ -47,15 +52,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            val viewModel = viewModel<MainViewModel>().value
-            val state by viewModel.viewState.collectAsState()
             val navController = rememberNavController()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
 
             val currentDestination = navBackStackEntry?.destination
             val currentRoute = currentDestination?.route
             val currentScreen = CO2Routes.all.firstOrNull { route ->
-                currentRoute?.endsWith(route.javaClass.simpleName) == true
+                currentRoute?.contains(route.javaClass.simpleName) == true
             } ?: CO2Routes.SplashScreenRoute
 
             Scaffold(
@@ -135,6 +138,30 @@ class MainActivity : ComponentActivity() {
                             DevicesScreen(
                                 navController = navController,
                                 viewModel = getViewModel()
+                            )
+                        }
+                        composable<CO2Routes.AlertsScreenRoute> {
+                            AlertsScreen()
+                        }
+                        composable<CO2Routes.AddNewDeviceScreenRoute> {
+                            AddNewDeviceScreen(
+                                navController = navController,
+                                viewModel = getViewModel()
+                            )
+                        }
+                        composable<CO2Routes.DeviceDetailScreenRoute> { backStackEntry ->
+                            val route = backStackEntry.toRoute<CO2Routes.DeviceDetailScreenRoute>()
+                            DeviceDetailScreen(
+                                navController = navController,
+                                viewModel = getViewModel { parametersOf(route.deviceId) }
+                            )
+                        }
+                        composable<CO2Routes.DeviceSettingsScreenRoute> { backStackEntry ->
+                            val route =
+                                backStackEntry.toRoute<CO2Routes.DeviceSettingsScreenRoute>()
+                            DeviceSettingsScreen(
+                                navController = navController,
+                                viewModel = getViewModel { parametersOf(route.deviceId) }
                             )
                         }
                         composable<CO2Routes.ContactsScreenRoute> {

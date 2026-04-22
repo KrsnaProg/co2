@@ -1,6 +1,7 @@
 package com.quantumai.co2.data
 
 import com.quantumai.co2.domain.GlobalDataProvider
+import com.quantumai.co2.domain.model.LoginRequestModel
 import com.quantumai.co2.domain.model.LoginResponseModel
 
 class SharedRepositoryImpl(
@@ -10,6 +11,6 @@ class SharedRepositoryImpl(
         email: String,
         password: String
     ): LoginResponseModel {
-        return globalDataProvider.loginUser(email, email)
+        return globalDataProvider.loginUser(LoginRequestModel(email = email, password = password))
     }
 }

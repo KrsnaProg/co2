@@ -22,6 +22,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -48,14 +50,29 @@ fun ContactsScreen(
     navController: NavController,
     viewModel: ContactsViewModel
 ){
-    ContactsContent()
+    ContactsContent(viewModel = viewModel)
 }
 
 @Composable
-fun ContactsContent() {
+fun ContactsContent(viewModel: ContactsViewModel) {
     var contactName by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
     val contacts = remember { mutableStateListOf<Contact>() }
+    val addFriendState by viewModel.addFriendState.collectAsState()
+
+    LaunchedEffect(addFriendState) {
+        when (val state = addFriendState) {
+            is AddFriendState.Success -> {
+                contacts.add(state.contact)
+                contactName = ""
+                phoneNumber = ""
+                viewModel.resetState()
+            }
+            else -> Unit
+        }
+    }
+
+    val isLoading = addFriendState is AddFriendState.Loading
 
     Column(
         modifier = Modifier
@@ -108,13 +125,11 @@ fun ContactsContent() {
                 Spacer(modifier = Modifier.height(12.dp))
 
                 CO2Button(
-                    text = stringResource(R.string.contacts_feature_add_friends),
+                    text = if (isLoading) stringResource(R.string.plemcontacts_feature_adding)
+                           else stringResource(R.string.contacts_feature_add_friends),
                     onClick = {
-                        if (contactName.isNotBlank() && phoneNumber.isNotBlank()) {
-                            val newContact = Contact(name = contactName, phone = phoneNumber)
-                            contacts.add(newContact)
-                            contactName = ""
-                            phoneNumber = ""
+                        if (contactName.isNotBlank() && phoneNumber.isNotBlank() && !isLoading) {
+                            viewModel.addFriend(name = contactName, phoneNumber = phoneNumber)
                         }
                     }
                 )
