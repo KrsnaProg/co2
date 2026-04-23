@@ -44,7 +44,6 @@ fun QrScannerView(
             .build()
             .also { analysis ->
                 analysis.setAnalyzer(cameraExecutor) { imageProxy ->
-                    @OptIn(ExperimentalGetImage::class)
                     val mediaImage = imageProxy.image
                     if (mediaImage != null) {
                         val image = InputImage.fromMediaImage(

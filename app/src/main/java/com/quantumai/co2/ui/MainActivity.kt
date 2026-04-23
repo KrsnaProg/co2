@@ -1,9 +1,12 @@
 package com.quantumai.co2.ui
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.EnterTransition
+import androidx.compose.animation.ExitTransition
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.WindowInsets
@@ -15,12 +18,14 @@ import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
@@ -30,11 +35,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.quantumai.co2.ui.addnewdevicescreen.AddNewDeviceScreen
 import com.quantumai.co2.ui.alertsscreen.AlertsScreen
-import com.quantumai.co2.ui.devicedetailscreen.DeviceDetailScreen
-import com.quantumai.co2.ui.devicesettingsscreen.DeviceSettingsScreen
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.components.CO2TopNavigationBar
 import com.quantumai.co2.ui.contactsscreen.ContactsScreen
+import com.quantumai.co2.ui.devicedetailscreen.DeviceDetailScreen
+import com.quantumai.co2.ui.devicesettingsscreen.DeviceSettingsScreen
 import com.quantumai.co2.ui.devicesscreen.DevicesScreen
 import com.quantumai.co2.ui.forgotpasswordscreen.ForgotPasswordScreen
 import com.quantumai.co2.ui.loginscreen.LoginScreen
@@ -48,18 +53,28 @@ class MainActivity : ComponentActivity() {
 
     @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
+
         setContent {
             val navController = rememberNavController()
             val navBackStackEntry by navController.currentBackStackEntryAsState()
+            val view = LocalView.current
 
             val currentDestination = navBackStackEntry?.destination
             val currentRoute = currentDestination?.route
             val currentScreen = CO2Routes.all.firstOrNull { route ->
                 currentRoute?.contains(route.javaClass.simpleName) == true
             } ?: CO2Routes.SplashScreenRoute
+
+            //dark icons on white bk
+            if (!view.isInEditMode) {
+                SideEffect {
+                    val window = (view.context as Activity).window
+                    WindowInsetsControllerCompat(window, view).isAppearanceLightStatusBars = true
+                }
+            }
 
             Scaffold(
                 containerColor = Color.White,
@@ -86,11 +101,14 @@ class MainActivity : ComponentActivity() {
                                 NavigationBarItem(
                                     selected = selected,
                                     onClick = {
-                                        navController.navigate(screen) {
-                                            launchSingleTop = true
-                                            restoreState = true
-                                            popUpTo(navController.graph.findStartDestination().id) {
-                                                saveState = true
+                                        // navigate if we are not there
+                                        if (!selected) {
+                                            navController.navigate(screen) {
+                                                popUpTo(navController.graph.findStartDestination().id) {
+                                                    saveState = true
+                                                }
+                                                launchSingleTop = true
+                                                restoreState = true
                                             }
                                         }
                                     },
@@ -118,6 +136,11 @@ class MainActivity : ComponentActivity() {
                         modifier = Modifier.background(AppColors.primaryBackground),
                         navController = navController,
                         startDestination = CO2Routes.SplashScreenRoute,
+                        //transition off
+                        enterTransition = { EnterTransition.None },
+                        exitTransition = { ExitTransition.None },
+                        popEnterTransition = { EnterTransition.None },
+                        popExitTransition = { ExitTransition.None }
                     ) {
                         composable<CO2Routes.SplashScreenRoute> {
                             SplashScreen(navController)

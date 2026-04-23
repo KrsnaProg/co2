@@ -49,7 +49,7 @@ fun RegisterScreen(viewModel: RegisterViewModel, navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    // Navigate to Login on success — reset state first so re-visiting register doesn't re-trigger
+    // Navigate to Log in on success — reset state first so re-visiting register doesn't re-trigger
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
             viewModel.onNavigationConsumed()
