@@ -7,5 +7,6 @@ data class RegisterRequestModel(
     @SerializedName("phoneNumber") val phoneNumber: String,
     @SerializedName("email") val email: String,
     @SerializedName("password") val password: String,
+    @SerializedName("fcmToken") val fcmToken: String,
 )
 

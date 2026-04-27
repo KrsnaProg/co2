@@ -12,7 +12,7 @@ import org.koin.dsl.module
 val USE_CASES_MODULE = module {
     factory { AddDeviceUseCase(get()) }
     factory { AddFriendUseCase(get()) }
-    factory { RegisterUseCase(get()) }
+    factory { RegisterUseCase(get(), get()) }
     factory { LoginUseCase(get(), get()) }
     factory { ForgotPasswordUseCase(get()) }
     factory { ResetPasswordUseCase(get()) }

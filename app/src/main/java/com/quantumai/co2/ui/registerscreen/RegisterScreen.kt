@@ -49,12 +49,13 @@ fun RegisterScreen(viewModel: RegisterViewModel, navController: NavController) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
-    // Navigate to Log in on success — reset state first so re-visiting register doesn't re-trigger
+    // navigate directly into the authenticated flow on success
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
             viewModel.onNavigationConsumed()
-            navController.navigate(CO2Routes.LoginScreenRoute) {
+            navController.navigate(CO2Routes.DevicesScreenRoute) {
                 popUpTo(CO2Routes.RegisterScreenRoute) { inclusive = true }
+                launchSingleTop = true
             }
         }
     }

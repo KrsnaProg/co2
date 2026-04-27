@@ -143,7 +143,10 @@ class MainActivity : ComponentActivity() {
                         popExitTransition = { ExitTransition.None }
                     ) {
                         composable<CO2Routes.SplashScreenRoute> {
-                            SplashScreen(navController)
+                            SplashScreen(
+                                navController = navController,
+                                viewModel = getViewModel()
+                            )
                         }
                         composable<CO2Routes.LoginScreenRoute> {
                             LoginScreen(
