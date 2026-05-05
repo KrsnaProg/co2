@@ -35,7 +35,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.foundation.Image
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import com.quantumai.co2.R
@@ -108,7 +107,7 @@ fun AddNewDeviceScreen(
                                 }
                             )
                         } else {
-                            androidx.compose.foundation.layout.Box(
+                            Box(
                                 modifier = Modifier.fillMaxSize(),
                                 contentAlignment = Alignment.Center
                             ) {

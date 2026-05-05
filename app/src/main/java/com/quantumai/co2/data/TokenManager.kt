@@ -2,15 +2,16 @@ package com.quantumai.co2.data
 
 import android.content.SharedPreferences
 import android.util.Base64
+import androidx.core.content.edit
 import org.json.JSONObject
 
 class TokenManager(private val prefs: SharedPreferences) {
 
     fun saveToken(token: String) {
-        prefs.edit()
-            .putString(KEY_TOKEN, token)
-            .putString(KEY_CUSTOMER_ID, decodeCustomerIdFromJwt(token))
-            .apply()
+        prefs.edit {
+            putString(KEY_TOKEN, token)
+                .putString(KEY_CUSTOMER_ID, decodeCustomerIdFromJwt(token))
+        }
     }
 
     fun getToken(): String? = prefs.getString(KEY_TOKEN, null)
@@ -18,10 +19,10 @@ class TokenManager(private val prefs: SharedPreferences) {
     fun getCustomerId(): String? = prefs.getString(KEY_CUSTOMER_ID, null)
 
     fun clearToken() {
-        prefs.edit()
-            .remove(KEY_TOKEN)
-            .remove(KEY_CUSTOMER_ID)
-            .apply()
+        prefs.edit {
+            remove(KEY_TOKEN)
+                .remove(KEY_CUSTOMER_ID)
+        }
     }
 
     fun isLoggedIn(): Boolean = getToken() != null

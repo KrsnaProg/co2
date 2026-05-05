@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -55,13 +56,14 @@ fun AlertsScreen() {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 24.dp, vertical = 18.dp)
+            .statusBarsPadding() // Pushes content below the system status bar
+            .padding(start = 24.dp, end = 24.dp, top = 24.dp, bottom = 18.dp) // Your +24dp requirement
     ) {
         Text(
             text = stringResource(R.string.alerts_feature_title),
             color = AppColors.primaryText,
             fontWeight = FontWeight.Bold,
-            fontSize = 40.sp
+            fontSize = 24.sp
         )
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -107,19 +109,19 @@ private fun AlertCard(alert: AlertItemUi) {
                 text = alert.deviceName,
                 color = AppColors.primaryText,
                 fontWeight = FontWeight.Bold,
-                fontSize = 28.sp
+                fontSize = 16.sp
             )
             Text(
                 text = alert.status,
                 color = AppColors.secondaryText,
                 fontWeight = FontWeight.Medium,
-                fontSize = 20.sp
+                fontSize = 14.sp
             )
             Text(
                 text = alert.date,
                 color = AppColors.secondaryText,
                 fontWeight = FontWeight.Medium,
-                fontSize = 20.sp
+                fontSize = 14.sp
             )
         }
 
@@ -130,4 +132,3 @@ private fun AlertCard(alert: AlertItemUi) {
         )
     }
 }
-

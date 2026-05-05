@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -53,7 +54,8 @@ fun DevicesScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp, vertical = 20.dp)
+            .statusBarsPadding()
+            .padding(start = 16.dp, end = 16.dp, top = 24.dp, bottom = 20.dp)
     ) {
         Column(
             modifier = Modifier
@@ -64,7 +66,7 @@ fun DevicesScreen(
                 text = stringResource(R.string.devices_feature_title),
                 color = AppColors.primaryText,
                 fontWeight = FontWeight.Bold,
-                fontSize = 32.sp
+                fontSize = 24.sp
             )
 
             Spacer(modifier = Modifier.height(16.dp))

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "656281490726",
+    "project_id": "co2-fcm-tokken",
+    "storage_bucket": "co2-fcm-tokken.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:656281490726:android:2262b1951b052133d19de7",
+        "android_client_info": {
+          "package_name": "com.quantumai.co2"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzAeJyOPZLUJmLS9VLeErk91FzMrnrtbw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

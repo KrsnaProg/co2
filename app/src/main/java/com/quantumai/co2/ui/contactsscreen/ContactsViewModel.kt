@@ -1,5 +1,6 @@
 package com.quantumai.co2.ui.contactsscreen
 
+import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quantumai.co2.domain.usecases.AddFriendUseCase
@@ -22,18 +23,25 @@ class ContactsViewModel(
     private val _addFriendState = MutableStateFlow<AddFriendState>(AddFriendState.Idle)
     val addFriendState: StateFlow<AddFriendState> = _addFriendState
 
+    // Persistent list within the ViewModel
+    val savedContacts = mutableStateListOf<Contact>()
+
     fun addFriend(name: String, phoneNumber: String) {
         viewModelScope.launch {
             _addFriendState.value = AddFriendState.Loading
             try {
                 addFriendUseCase(nickName = name, phoneNumber = phoneNumber)
-                _addFriendState.value = AddFriendState.Success(
-                    Contact(name = name, phone = phoneNumber)
-                )
+                val newContact = Contact(name = name, phone = phoneNumber)
+                savedContacts.add(newContact)
+                _addFriendState.value = AddFriendState.Success(newContact)
             } catch (e: Exception) {
-                _addFriendState.value = AddFriendState.Error(e.message ?: "Unknown error")
+                _addFriendState.value = AddFriendState.Error(e.message ?: "Network Error")
             }
         }
+    }
+
+    fun removeFriend(contact: Contact) {
+        savedContacts.remove(contact)
     }
 
     fun resetState() {

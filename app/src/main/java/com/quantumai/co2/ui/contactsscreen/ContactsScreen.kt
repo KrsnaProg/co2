@@ -25,7 +25,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -43,7 +42,6 @@ import com.quantumai.co2.R
 import com.quantumai.co2.ui.colors.AppColors
 import com.quantumai.co2.ui.components.CO2Button
 import com.quantumai.co2.ui.components.CO2InputField
-import com.quantumai.co2.ui.contactsscreen.contact_card_model.Contact
 
 @Composable
 fun ContactsScreen(
@@ -57,22 +55,18 @@ fun ContactsScreen(
 fun ContactsContent(viewModel: ContactsViewModel) {
     var contactName by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
-    val contacts = remember { mutableStateListOf<Contact>() }
     val addFriendState by viewModel.addFriendState.collectAsState()
 
+    // Reference the list from the ViewModel
+    val contacts = viewModel.savedContacts
+
     LaunchedEffect(addFriendState) {
-        when (val state = addFriendState) {
-            is AddFriendState.Success -> {
-                contacts.add(state.contact)
-                contactName = ""
-                phoneNumber = ""
-                viewModel.resetState()
-            }
-            else -> Unit
+        if (addFriendState is AddFriendState.Success) {
+            contactName = ""
+            phoneNumber = ""
+            viewModel.resetState()
         }
     }
-
-    val isLoading = addFriendState is AddFriendState.Loading
 
     Column(
         modifier = Modifier
@@ -84,10 +78,7 @@ fun ContactsContent(viewModel: ContactsViewModel) {
                 .fillMaxWidth()
                 .background(
                     color = AppColors.primaryLightBlue,
-                    shape = RoundedCornerShape(
-                        bottomStart = 16.dp,
-                        bottomEnd = 16.dp
-                    )
+                    shape = RoundedCornerShape(bottomStart = 16.dp, bottomEnd = 16.dp)
                 )
                 .statusBarsPadding()
         ) {
@@ -102,7 +93,6 @@ fun ContactsContent(viewModel: ContactsViewModel) {
                 Spacer(modifier = Modifier.height(15.dp))
 
                 CO2InputField(
-                    textFieldModifier = Modifier.height(53.dp),
                     label = stringResource(R.string.contacts_feature_contact_name),
                     value = contactName,
                     onValueChange = { contactName = it },
@@ -112,60 +102,61 @@ fun ContactsContent(viewModel: ContactsViewModel) {
                 Spacer(modifier = Modifier.height(12.dp))
 
                 CO2InputField(
-                    textFieldModifier = Modifier.height(53.dp),
                     label = stringResource(R.string.contacts_feature_phone_number),
                     value = phoneNumber,
-                    onValueChange = { input ->
-                        phoneNumber = input.filter { it.isDigit() }
-                    },
+                    onValueChange = { input -> phoneNumber = input.filter { it.isDigit() } },
                     placeholder = stringResource(R.string.contacts_feature_phone_number_place_holder),
                     keyboardType = KeyboardType.Number
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
+                val isLoading = addFriendState is AddFriendState.Loading
                 CO2Button(
-                    text = if (isLoading) stringResource(R.string.plemcontacts_feature_adding)
-                           else stringResource(R.string.contacts_feature_add_friends),
+                    text = if (isLoading) "Adding..." else "Add Friend",
                     onClick = {
                         if (contactName.isNotBlank() && phoneNumber.isNotBlank() && !isLoading) {
-                            viewModel.addFriend(name = contactName, phoneNumber = phoneNumber)
+                            viewModel.addFriend(contactName, phoneNumber)
                         }
                     }
                 )
+
+                if (addFriendState is AddFriendState.Error) {
+                    Text(
+                        text = (addFriendState as AddFriendState.Error).message,
+                        color = Color.Red,
+                        fontSize = 12.sp,
+                        modifier = Modifier.padding(top = 8.dp)
+                    )
+                }
             }
         }
 
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 26.dp)
+                .padding(horizontal = 26.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            contentPadding = PaddingValues(top = 16.dp, bottom = 24.dp)
         ) {
-            Text(
-                text = stringResource(R.string.contacts_feature_saved_friends),
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                color = AppColors.primaryText,
-                modifier = Modifier.padding(vertical = 16.dp)
-            )
+            item {
+                Text(
+                    text = stringResource(R.string.contacts_feature_saved_friends),
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = AppColors.primaryText
+                )
+            }
 
-            LazyColumn(
-                modifier = Modifier,
-                verticalArrangement = Arrangement.spacedBy(12.dp),
-                contentPadding = PaddingValues(bottom = 24.dp)
-            ) {
-                items(
-                    items = contacts,
-                    key = { it.id }
-                ) { contact ->
-                    FriendCard(
-                        name = contact.name,
-                        phoneNumber = contact.phone,
-                        onDeleteClick = {
-                            contacts.remove(contact)
-                        }
-                    )
-                }
+            items(
+                items = contacts,
+                key = { it.id } // Contact ID ensures smooth animations and list stability
+            ) { contact ->
+                FriendCard(
+                    name = contact.name,
+                    phoneNumber = contact.phone,
+                    onDeleteClick = { viewModel.removeFriend(contact) }
+                )
             }
         }
     }

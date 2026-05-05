@@ -39,7 +39,7 @@ fun ResetPasswordScreen(viewModel: ResetPasswordViewModel, navController: NavCon
     var newPassword by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
-    // Navigate to Login on success
+    // Navigate to Log in on success
     LaunchedEffect(state.isSuccess) {
         if (state.isSuccess) {
             viewModel.onNavigationConsumed()

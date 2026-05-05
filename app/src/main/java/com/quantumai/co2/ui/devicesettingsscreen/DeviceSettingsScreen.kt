@@ -54,7 +54,7 @@ fun DeviceSettingsScreen(
 ) {
     val savedState by viewModel.state.collectAsState()
 
-    // Local editable state initialised from saved state
+    // Local editable state initialized from saved state
     var deviceName by remember(savedState.name) { mutableStateOf(savedState.name) }
     var deviceLocation by remember(savedState.location) { mutableStateOf(savedState.location) }
     var alertGas by remember(savedState.alertGas) { mutableStateOf(savedState.alertGas) }
@@ -221,7 +221,7 @@ fun DeviceSettingsScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Icon(
-                            painter = painterResource(R.drawable.ic_location),
+                            painter = painterResource(R.drawable.friend_icon),//location icon needed
                             contentDescription = null,
                             tint = AppColors.secondaryText,
                             modifier = Modifier.size(16.dp)
